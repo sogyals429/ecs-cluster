@@ -1,5 +1,5 @@
 ecs:
-	terraform apply --var-file variables.tfvars
+	terraform apply --var-file variable.tfvars
 
 destroy:
-	terraform destroy --var-file variables.tfvars
+	terraform destroy --var-file variable.tfvars
