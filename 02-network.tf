@@ -3,7 +3,8 @@ resource "aws_vpc" "ecs-vpc"{
   cidr_block = "172.24.0.0/16"
 
   tags = merge({
-    Name="ecs-vpc"},
+    Name="ecs-vpc"
+  },
     local.common_tags
   )
 }

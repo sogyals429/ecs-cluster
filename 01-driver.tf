@@ -12,8 +12,8 @@ provider "aws" {
 
 locals {
   common_tags = {
-    Project = "terraform-aws-vpn"
+    Project = "ecs-project"
     Maintainer_Software = "Terraform"
-    Project = "git@github.com:sogyals429/terraform-aws-vpn.git"
+    Project = "git@github.com:sogyals429/ecs-project.git"
   }
 }
