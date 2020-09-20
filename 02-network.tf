@@ -47,10 +47,11 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_eip" "ngw-ip" {
-  depends_on = [aws_internet_gateway.igw]
-  count    = length(aws_subnet.public)
-  vpc      = true
+  depends_on                = [aws_internet_gateway.igw]
+  count                     = length(aws_subnet.public)
+  vpc                       = true
   associate_with_private_ip = element(var.private_subnets,count.index)
+  tags                      = merge({ Name = "ecs-eip-${count.index}" }, local.common_tags)
 }
 
 resource "aws_nat_gateway" "ngw" {
