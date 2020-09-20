@@ -1,13 +1,13 @@
 resource "aws_ecs_cluster" "ecs" {
   name = "ecs-cluster"
 
- 
+
 }
 
 
 # data "template_file" "basic_svc" {
 #   template = file("templates/svc-template.tpl")
-  
+
 # }
 
 # resource "aws_ecs_task_definition" "basic_service" {

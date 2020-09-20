@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "terraform-ecs-sogyal"
-    key = "terraform.tfstate.d"
+    key    = "terraform.tfstate.d"
     region = "ap-southeast-2"
   }
 }
@@ -12,8 +12,8 @@ provider "aws" {
 
 locals {
   common_tags = {
-    Project = "ecs-project"
+    Project             = "ecs-project"
     Maintainer_Software = "Terraform"
-    Project = "git@github.com:sogyals429/ecs-project.git"
+    Project             = "git@github.com:sogyals429/ecs-project.git"
   }
 }
