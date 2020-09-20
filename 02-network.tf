@@ -37,6 +37,15 @@ resource "aws_route" "public" {
   gateway_id             = aws_internet_gateway.igw.id
 }
 
+resource "aws_network_acl" "public" {
+  vpc_id = aws_vpc.main.id
+  subnet_ids = aws_subnet.public.*.id
+}
+
+resource "aws_network_acl_rule" "https"{
+
+}
+
 # Private Network
 
 resource "aws_subnet" "private" {
@@ -74,9 +83,18 @@ resource "aws_route_table_association" "priavte-ecs-rt-assoc" {
   subnet_id      = element(aws_subnet.private.*.id, count.index)
 }
 
-resource "aws_route" "private_rt" {
+resource "aws_route" "private-rt" {
   count                  = length(aws_subnet.private)
   destination_cidr_block = "0.0.0.0/0"
   route_table_id         = element(aws_route_table.private-rt.*.id, count.index)
   nat_gateway_id         = element(aws_nat_gateway.ngw.*.id, count.index)
+}
+
+resource "aws_network_acl" "public-acl" {
+  vpc_id = aws_vpc.main.id
+  subnet_ids = aws_subnet.private.*.id
+}
+
+resource "aws_network_acl_rule" "https"{
+  
 }
