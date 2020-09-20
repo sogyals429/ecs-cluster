@@ -38,7 +38,8 @@ resource "aws_route_table" "ecs-rt" {
 
 resource "aws_route_table_association" "ecs-rt-assoc" {
   count          = length(aws_subnet.ecs-subnets)
-  route_table_id = aws_route_table.ecs-rt.idsubnet_id      = element(aws_subnet.ecs-subnets.*.id, count.index)
+  route_table_id = aws_route_table.ecs-rt.id
+subnet_id      = element(aws_subnet.ecs-subnets.*.id, count.index)
 }
 
 resource "aws_route" "ecs-rt" {
