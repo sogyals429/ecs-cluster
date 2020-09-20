@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.ecs-vpc.id
-  tags = merge({ Name = "ecs-igw" }, local.common_tags)
+  tags   = merge({ Name = "ecs-igw" }, local.common_tags)
 }
 
 resource "aws_subnet" "public" {
@@ -38,7 +38,8 @@ resource "aws_route_table" "ecs-rt" {
 
 resource "aws_route_table_association" "ecs-rt-assoc" {
   count          = length(aws_subnet.ecs-subnets)
-  route_table_id = aws_route_table.ecs-rt.idsubnet_id      = element(aws_subnet.ecs-subnets.*.id, count.index)
+  route_table_id = aws_route_table.ecs-rt.id
+  subnet_id      = element(aws_subnet.ecs-subnets.*.id, count.index)
 }
 
 resource "aws_route" "ecs-rt" {
