@@ -3,10 +3,7 @@ resource "aws_vpc" "main" {
   tags       = merge({ Name = "ecs-vpc" }, local.common_tags)
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.ecs-vpc.id
-  tags   = merge({ Name = "ecs-igw" }, local.common_tags)
-}
+# Public Network
 
 resource "aws_subnet" "public" {
   count                   = length(data.aws_availability_zones.available.names)
@@ -16,6 +13,32 @@ resource "aws_subnet" "public" {
   tags                    = merge({ Name = "ecs-pub-subnet-${count.index}" }, local.common_tags)
 }
 
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.ecs-vpc.id
+  tags   = merge({ Name = "ecs-igw" }, local.common_tags)
+}
+
+resource "aws_route_table" "ecs-rt" {
+  count  = length(data.aws_availability_zones.available.names)
+  vpc_id = aws_vpc.main.id
+  tags   = merge({ Name = "ecs-rt-${count.index}" }, local.common_tags)
+}
+
+resource "aws_route_table_association" "ecs-rt-assoc" {
+  count          = length(aws_subnet.public)
+  route_table_id = element(aws_route_table.ecs-rt.*.id,count.index)
+  subnet_id      = element(aws_subnet.public.*.id, count.index)
+}
+
+resource "aws_route" "public" {
+  count                  = length(aws_subnet.public)
+  destination_cidr_block = "0.0.0.0/0"
+  route_table_id         = element(aws_route_table.ecs-rt.*.id,count.index)
+  gateway_id             = aws_internet_gateway.igw.id
+}
+
+# Private Network
+
 resource "aws_subnet" "private" {
   count      = length(data.aws_availability_zones.available.names)
   cidr_block = element(var.private_subnets, count.index)
@@ -23,35 +46,29 @@ resource "aws_subnet" "private" {
   tags       = merge({ Name = "ecs-priv-subnet-${count.index}" }, local.common_tags)
 }
 
-resource "aws_nat_gateway" "gw" {
+resource "aws_nat_gateway" "ngw" {
   count         = length(aws_subnet.public)
   allocation_id = aws_eip.nat.id
   subnet_id     = element(aws_subnet.public.*.id, count.index)
   tags          = merge({ Name = "nat-gw-${count.index}" }, local.common_tags)
 }
 
-resource "aws_route_table" "ecs-rt" {
+
+resource "aws_route_table" "private-rt" {
   count  = length(data.aws_availability_zones.available.names)
   vpc_id = aws_vpc.main.id
-  tags = merge({ Name = "ecs-rt-${count.index}" }
-  , local.common_tags)
+  tags   = merge({ Name = "ecs-private-rt-${count.index}" }, local.common_tags)
 }
 
 resource "aws_route_table_association" "ecs-rt-assoc" {
-  count          = length(aws_subnet.ecs-subnets)
-  route_table_id = aws_route_table.ecs-rt.id
-  subnet_id      = element(aws_subnet.ecs-subnets.*.id, count.index)
+  count          = length(aws_subnet.private)
+  route_table_id = element(aws_route_table.private-rt.*.id,count.index)
+  subnet_id      = element(aws_subnet.private.*.id, count.index)
 }
 
-resource "aws_route" "ecs-rt" {
-  count                  = length(aws_subnet.ecs-subnets)
-  destination_cidr_block = "0.0.0.0/0"
-  route_table_id         = aws_route_table.ecs-rt.id
-  gateway_id             = aws_internet_gateway.igw.id
-}
-
-resource "aws_network_acl" "ecs-acl" {
-  vpc_id     = aws_vpc.main.id
-  subnet_ids = aws_subnet.public.*.id
-  tags       = merge({ Name = "ecs-acl" }, local.common_tags)
+resource "aws_route" "private_rt"{
+  count                   = length(aws_subnet.private)
+  destination_cidr_block  = "0.0.0.0/0"
+  route_table_id = element(aws_route_table.private-rt.*.id,count.index)
+  nat_gateway_id = element(aws_nat_gateway.ngw.*.id, count.index)
 }
