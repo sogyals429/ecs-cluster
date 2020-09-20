@@ -1,2 +1,3 @@
 data "aws_availability_zones" "available" {}
-variable "aws_subnets" {}
+variable "public_subnets" {}
+variable "private_subnets" {}
