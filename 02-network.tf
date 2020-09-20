@@ -33,7 +33,8 @@ resource "aws_nat_gateway" "gw" {
 resource "aws_route_table" "ecs-rt" {
   count  = length(data.aws_availability_zones.available.names)
   vpc_id = aws_vpc.main.id
-  tags   = merge({ Name = "ecs-rt-${count.index}" }, local.common_tags)
+  tags   = merge({ Name = "ecs-rt-${count.index}"}
+  , local.common_tags)
 }
 
 resource "aws_route_table_association" "ecs-rt-assoc" {
