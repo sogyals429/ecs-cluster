@@ -6,7 +6,7 @@ resource "aws_network_acl" "public" {
 }
 
 resource "aws_network_acl_rule" "https_inbound"{
-  network_acl_id = aws_network_acl.public.*.id
+  network_acl_id = aws_network_acl.public.id
   rule_number    = 100
   egress         = false
   protocol       = "https"
@@ -17,7 +17,7 @@ resource "aws_network_acl_rule" "https_inbound"{
 }
 
 resource "aws_network_acl_rule" "https_outbound"{
-  network_acl_id = aws_network_acl.public.*.id
+  network_acl_id = aws_network_acl.public.id
   rule_number    = 101
   egress         = true
   protocol       = "https"
@@ -28,7 +28,7 @@ resource "aws_network_acl_rule" "https_outbound"{
 }
 
 resource "aws_network_acl_rule" "ssh_inbound"{
-  network_acl_id = aws_network_acl.public.*.id
+  network_acl_id = aws_network_acl.public.id
   rule_number    = 102
   egress         = false
   protocol       = "tcp"
@@ -39,7 +39,7 @@ resource "aws_network_acl_rule" "ssh_inbound"{
 }
 
 resource "aws_network_acl_rule" "ssh_outbound"{
-  network_acl_id = aws_network_acl.public.*.id
+  network_acl_id = aws_network_acl.public.id
   rule_number    = 103
   egress         = true
   protocol       = "tcp"

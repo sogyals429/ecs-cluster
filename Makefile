@@ -1,3 +1,6 @@
+init:
+	terraform init
+
 ecs:
 	terraform apply --var-file variable.tfvars
 
