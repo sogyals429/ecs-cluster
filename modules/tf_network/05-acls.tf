@@ -9,7 +9,7 @@ resource "aws_network_acl_rule" "https_inbound"{
   network_acl_id = aws_network_acl.public.id
   rule_number    = 100
   egress         = false
-  protocol       = "https"
+  protocol       = "tcp"
   rule_action    = "allow"
   cidr_block     = "0.0.0.0/0"
   from_port      = 443
@@ -20,7 +20,7 @@ resource "aws_network_acl_rule" "https_outbound"{
   network_acl_id = aws_network_acl.public.id
   rule_number    = 101
   egress         = true
-  protocol       = "https"
+  protocol       = "tcp"
   rule_action    = "allow"
   cidr_block     = "0.0.0.0/0"
   from_port      = 443

@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "ecs_config_bucket" {
-  bucket     = "terraform_ecs_config_bucket"
+  bucket     = "terraform-ecs-config-bucket"
   acl        = "private"
   
   versioning {
