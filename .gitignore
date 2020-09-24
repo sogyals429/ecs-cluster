@@ -1,6 +1,6 @@
 # Local .terraform directories
 **/.terraform/*
-
+.nosync
 # .tfstate files
 *.tfstate
 *.tfstate.*
