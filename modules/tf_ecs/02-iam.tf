@@ -13,7 +13,7 @@ data "template_file" "ecs_api_task_assume_policy"{
 data "template_file" "ecs_api_container_assume_policy"{
   template = file("${path.module}/templates/ecs_api_container_assume_policy.json.tpl")
   vars = {
-    conf_bucket = var.ecs_config_bucket
+    conf_bucket = var.ecs_config_bucket_arn
   }
 }
 
