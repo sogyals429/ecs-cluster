@@ -1,4 +1,4 @@
-data "template_file" "nginx" {
+data "template_file" "nginx-proxy" {
   template = file("${path.module}/templates/svc-template.tpl")
   vars     = {
     LOG_GROUP_NAME  = var.ecs_log_group
@@ -8,15 +8,27 @@ data "template_file" "nginx" {
   }
 }
 
-# resource "aws_ecs_task_definition" "basic_service" {
-#   family = "first-service"
-#   container_definitions = ""
-#   network_mode = "awsvpc"
-#   requires_compatibilities = ["FARGATE"]
-#   cpu = ""
-#   memory = ""
-#   task_role_arn = ""
-# }
+resource "aws_ecs_task_definition" "nginx-proxy" {
+  family = "nginx-proxy-container"
+  container_definitions = data.template_file.nginx-proxy.rendered
+  network_mode = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu = "256"
+  memory = "512"
+  task_role_arn = aws_iam_role.ecs_api_task_assume.arn
+  execution_role_arn = aws_iam_role.ecs_api_container_assume.arn
+  
+  lifecycle {
+    create_before_destroy = "true"
+  }
+
+  tags = merge(
+    map(
+      "Name", "Fargate"
+    ),
+    var.common_tags
+  )
+}
 
 # resource "aws_ecs_service" "basic" {
 #  name = "basic-service"
