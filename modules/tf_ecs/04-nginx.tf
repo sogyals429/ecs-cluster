@@ -16,8 +16,8 @@ resource "aws_ecs_task_definition" "nginx-proxy" {
   requires_compatibilities = ["FARGATE"]
   cpu = "256"
   memory = "512"
-  task_role_arn = aws_iam_role.ecs_api_task_assume.arn
-  execution_role_arn = aws_iam_role.ecs_api_container_assume.arn
+  task_role_arn = aws_iam_role.ecs_api_container_assume.arn
+  execution_role_arn = aws_iam_role.ecs_api_task_assume.arn
   
   lifecycle {
     create_before_destroy = "true"
@@ -31,8 +31,8 @@ resource "aws_ecs_task_definition" "nginx-proxy" {
   )
 }
 
-resource "aws_ecs_service" "api-taps" {
-  name             = "lp-api-taps"
+resource "aws_ecs_service" "nginx-proxy" {
+  name             = "nginx-proxy-service"
   cluster          = aws_ecs_cluster.ecs.id
   task_definition  = aws_ecs_task_definition.nginx-proxy.arn
   desired_count    = "1"
