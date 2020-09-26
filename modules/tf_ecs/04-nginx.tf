@@ -33,14 +33,14 @@ resource "aws_ecs_task_definition" "nginx-proxy" {
 
 resource "aws_ecs_service" "api-taps" {
   name             = "lp-api-taps"
-  cluster          = aws_ecs_cluster.ecs_cluster.id
-  task_definition  = "${aws_ecs_task_definition.nginx-proxy.arn}"
+  cluster          = aws_ecs_cluster.ecs.id
+  task_definition  = aws_ecs_task_definition.nginx-proxy.arn
   desired_count    = "1"
   launch_type      = "FARGATE"
 
   network_configuration {
-    security_groups = ["${var.aws_security_group_ecs_api}"]
-    subnets         = ["${var.aws_subnet_private_api_id}"]
+    security_groups = [var.aws_security_group_ecs_api]
+    subnets         = var.aws_subnet_private_api_id
   }
 
   lifecycle {
