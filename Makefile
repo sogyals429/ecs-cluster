@@ -2,10 +2,10 @@ init:
 	terraform init
 
 ecs:
-	terraform apply --var-file variable.tfvars
+	terraform apply --var-file ../tf_vars/variable.tfvars
 
 plan.ecs:
-	terraform plan --var-file variable.tfvars
+	terraform plan --var-file ../tf_vars/variable.tfvars
 
 destroy:
-	terraform destroy --var-file variable.tfvars
+	terraform destroy --var-file ../tf_vars/variable.tfvars

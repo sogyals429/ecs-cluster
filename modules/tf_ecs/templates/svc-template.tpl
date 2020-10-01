@@ -1,7 +1,7 @@
 [
   {
     "name": "${CONTAINER_NAME}",
-    "image": "",
+    "image": "413817614433.dkr.ecr.ap-southeast-2.amazonaws.com/${REGISTRY_IMAGE}",
     "networkMode": "awsvpc",
     "essential": true,
     "logConfiguration": {
@@ -19,8 +19,8 @@
     ],
     "portMappings": [
       {
-        "containerPort": 1080,
-        "hostPort": 1080,
+        "containerPort": 80,
+        "hostPort": 80,
         "protocol": "tcp"
       }
     ]
