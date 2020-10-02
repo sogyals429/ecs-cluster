@@ -26,6 +26,10 @@ jobs:
         with:
           repository: sogyals429/terraform_variables
           ssh-key: ${{secrets.SSH_KEY}}
+      
+      - name: TESTING
+        run: 'ls'
+        shell: bash
 
       # - name: Setup SSH Key
       #   run: 'echo "$SSH_KEY" > key'
