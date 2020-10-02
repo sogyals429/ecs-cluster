@@ -29,8 +29,11 @@ jobs:
           SSH_KEY: ${{secrets.SSH_KEY}}
 
       - name: Print File
-        run: 'cat key'
-        shell: sh
+        run: 'ssh-add key'
+        shell: bash
+
+      - name: "Pull Project Variables"
+        run: 'git pull git@github.com:sogyals429/terraform_variables.git'
 
       # - name: Checkout master
       #   run: 'git checkout master'
