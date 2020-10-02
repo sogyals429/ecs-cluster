@@ -22,18 +22,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Setup SSH Key
-        run: 'echo "$SSH_KEY" > key'
-        shell: bash
-        env:
-          SSH_KEY: ${{secrets.SSH_KEY}}
+      - uses: actions/checkout@v1
+        with:
+          repository: sogyals429/terraform_variables
+          token: ${{secrets.SSH_KEY}}
 
-      - name: Print File
-        run: '(mkdir ~/.ssh/ ) && (cp key ~/.ssh/id_rsa) && (ssh-add ~/.ssh/id_rsa)'
-        shell: bash
+      # - name: Setup SSH Key
+      #   run: 'echo "$SSH_KEY" > key'
+      #   shell: bash
+      #   env:
+      #     SSH_KEY: ${{secrets.SSH_KEY}}
 
-      - name: "Pull Project Variables"
-        run: 'git pull git@github.com:sogyals429/terraform_variables.git'
+      # - name: Print File
+      #   run: '(mkdir ~/.ssh/ ) && (cp key ~/.ssh/id_rsa) && (ssh-add ~/.ssh/id_rsa)'
+      #   shell: bash
+
+      # - name: "Pull Project Variables"
+      #   run: 'git pull git@github.com:sogyals429/terraform_variables.git'
 
       # - name: Checkout master
       #   run: 'git checkout master'
