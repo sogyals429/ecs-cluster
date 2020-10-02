@@ -8,3 +8,6 @@ variable "proxy_api_server_image" {}
 variable "proxy_api_server_version" {}
 variable "aws_security_group_ecs_api" {}
 variable "aws_subnet_private_api_id" {}
+variable "aws_subnet_public_api_id" {}
+variable "aws_security_group_api_lb" {}
+variable "vpc_id" {}
