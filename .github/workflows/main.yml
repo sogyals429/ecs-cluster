@@ -21,6 +21,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with: 
+          repository: sogyals429/ecs-cluster
+          ssh-key: ${{secrets.SSH_KEY}}
 
       - uses: actions/checkout@v2
         with:
