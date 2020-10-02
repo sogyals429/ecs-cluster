@@ -29,26 +29,9 @@ jobs:
         with:
           repository: sogyals429/terraform_variables
           ssh-key: ${{secrets.SSH_KEY}}
-      
-      - name: TESTING
-        run: 'ls'
-        shell: bash
 
-      # - name: Setup SSH Key
-      #   run: 'echo "$SSH_KEY" > key'
-      #   shell: bash
-      #   env:
-      #     SSH_KEY: ${{secrets.SSH_KEY}}
-
-      # - name: Print File
-      #   run: '(mkdir ~/.ssh/ ) && (cp key ~/.ssh/id_rsa) && (ssh-add ~/.ssh/id_rsa)'
-      #   shell: bash
-
-      # - name: "Pull Project Variables"
-      #   run: 'git pull git@github.com:sogyals429/terraform_variables.git'
-
-      # - name: Checkout master
-      #   run: 'git checkout master'
+      - name: Checkout master
+        run: 'git checkout master'
 
       # - name: Download AWS Config
       #   run: '(curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip -q awscliv2.zip && sudo ./aws/install)'
