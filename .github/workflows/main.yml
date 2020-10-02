@@ -29,7 +29,7 @@ jobs:
           SSH_KEY: ${{secrets.SSH_KEY}}
 
       - name: Print File
-        run: 'ls'
+        run: 'cat key'
         shell: sh
 
       # - name: Checkout master
