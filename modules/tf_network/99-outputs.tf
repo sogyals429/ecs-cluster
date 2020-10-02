@@ -7,3 +7,8 @@ output "aws_private_subnets" {
   value = aws_subnet.private.*.id
   description = "Private Subnets for VPC"
 }
+
+output "aws_public_subnets" {
+  value = aws_subnet.public.*.id
+  description = "Public Subnets for VPC"
+}

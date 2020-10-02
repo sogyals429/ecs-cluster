@@ -43,6 +43,12 @@ resource "aws_ecs_service" "nginx-proxy" {
     subnets         = var.aws_subnet_private_api_id
   }
 
+  load_balancer {
+    target_group_arn = aws_lb_target_group.api_lb_target_group.arn
+    container_name   = "nginx-proxy-service"
+    container_port   = 80
+  }
+
   lifecycle {
     create_before_destroy = "true"
   }
