@@ -23,11 +23,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup SSH Key
-        run: 'touch test << ${{secrets.SSH_KEY}}'
-        shell: sh
+        run: 'echo "$SSH_KEY" > key'
+        shell: bash
+        env:
+          SSH_KEY: ${{secrets.SSH_KEY}}
 
       - name: Print File
-        run: 'cat test'
+        run: 'ls'
         shell: sh
 
       # - name: Checkout master
