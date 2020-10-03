@@ -9,3 +9,6 @@ plan.ecs:
 
 destroy:
 	terraform destroy --var-file ../tf_vars/variable.tfvars
+
+actions:
+	terraform apply --var-file ../tf_vars/variable.tfvars -input=false -auto-approve
