@@ -24,7 +24,7 @@ jobs:
         with: 
           repository: sogyals429/ecs-cluster
           ssh-key: ${{secrets.SSH_KEY}}
-          path: main
+          path: ecs-cluster
 
       - uses: actions/checkout@v2
         with:
@@ -32,14 +32,8 @@ jobs:
           ssh-key: ${{secrets.SSH_KEY}}
           path: variables
 
-      # - name: Checkout master
-      #   run: 'git checkout master'
-
-      - name: Print Current Dir
-        run: '(ls main) && (ls variables)'
-
       - name: Download AWS Config
-        run: '(curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip -q awscliv2.zip && sudo ./aws/install)'
+        run: '(curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip -q awscliv2.zip && sudo ./aws/install)'
         shell: sh
 
       - name: Setup AWS CLI
@@ -48,10 +42,10 @@ jobs:
         shell: sh
 
       - name: Install Terraform
-        run: 'wget https://releases.hashicorp.com/terraform/0.12.25/terraform_0.12.25_linux_amd64.zip'
+        run: 'wget -q https://releases.hashicorp.com/terraform/0.12.25/terraform_0.12.25_linux_amd64.zip'
 
       - name: Unzip Terraform Package
         run: 'unzip -o terraform_0.12.25_linux_amd64.zip && sudo mv terraform /usr/local/bin'
 
       - name: Init Terraform
-        run: 'rm -rf .terraform/ && terraform init'
+        run: 'cd ecs-cluster && rm -rf .terraform/ && terraform init'
