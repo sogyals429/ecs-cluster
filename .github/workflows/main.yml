@@ -32,8 +32,8 @@ jobs:
           ssh-key: ${{secrets.SSH_KEY}}
           path: variables
 
-      - name: Checkout master
-        run: 'git checkout master'
+      # - name: Checkout master
+      #   run: 'git checkout master'
 
       - name: Print Current Dir
         run: 'ls'
