@@ -42,10 +42,10 @@ jobs:
         shell: sh
 
       - name: Install Terraform
-        run: 'wget -q https://releases.hashicorp.com/terraform/0.12.25/terraform_0.12.25_linux_amd64.zip'
+        run: 'wget -q https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip'
 
       - name: Unzip Terraform Package
-        run: 'unzip -o terraform_0.12.25_linux_amd64.zip && sudo mv terraform /usr/local/bin'
+        run: 'unzip -o terraform_0.12.29_linux_amd64.zip && sudo mv terraform /usr/local/bin'
 
       - name: Init Terraform
         run: 'cd ecs-cluster && rm -rf .terraform/ && terraform init'
