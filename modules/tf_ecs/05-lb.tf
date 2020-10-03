@@ -18,8 +18,8 @@ resource "aws_lb_listener" "api_lb_listener" {
   load_balancer_arn = aws_lb.proxy_lb.arn
   port              = "443"
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+  # ssl_policy        = "ELBSecurityPolicy-2016-08"
+  # certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
 
   default_action {
     type             = "forward"
@@ -29,7 +29,7 @@ resource "aws_lb_listener" "api_lb_listener" {
 
 resource "aws_lb_target_group" "api_lb_target_group" {
   name              = "api-lb-proxy-tg"
-  port              = 443
+  port              = 80
   protocol          = "TCP"
   target_type       = "ip"
   vpc_id            = var.vpc_id
