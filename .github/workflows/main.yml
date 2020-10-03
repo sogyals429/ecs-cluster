@@ -24,11 +24,13 @@ jobs:
         with: 
           repository: sogyals429/ecs-cluster
           ssh-key: ${{secrets.SSH_KEY}}
+          path: main
 
       - uses: actions/checkout@v2
         with:
           repository: sogyals429/terraform_variables
           ssh-key: ${{secrets.SSH_KEY}}
+          path: variables
 
       - name: Checkout master
         run: 'git checkout master'
