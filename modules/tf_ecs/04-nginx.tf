@@ -45,7 +45,7 @@ resource "aws_ecs_service" "nginx-proxy" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.api_lb_target_group.arn
-    container_name   = "nginx-proxy-service"
+    container_name   = "nginx-container"
     container_port   = 80
   }
 
