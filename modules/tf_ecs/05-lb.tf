@@ -34,7 +34,7 @@ resource "aws_lb_listener" "api_lb_listener" {
 
 resource "aws_lb_target_group" "api_lb_target_group" {
   name              = "api-lb-proxy-tg"
-  port              = 80
+  port              = 443
   protocol          = "TCP"
   target_type       = "ip"
   vpc_id            = var.vpc_id
