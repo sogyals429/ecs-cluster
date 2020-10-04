@@ -52,5 +52,5 @@ jobs:
       - name: Init Terraform
         run: 'cd ecs-cluster && rm -rf .terraform/ && terraform init'
 
-      - name: Plan Stage
+      - name: Deploy Project
         run: 'cd ecs-cluster && make actions'
