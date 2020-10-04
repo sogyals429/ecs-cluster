@@ -38,7 +38,6 @@ resource "aws_lb_target_group" "api_lb_target_group" {
   protocol          = "HTTPS"
   target_type       = "ip"
   vpc_id            = var.vpc_id
-  proxy_protocol_v2 = "true"
 
 	tags = merge(
 		var.common_tags,
